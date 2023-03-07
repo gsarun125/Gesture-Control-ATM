@@ -13,9 +13,10 @@ root.columnconfigure(0, weight=1)
 homepg = tk.Frame(root)
 ftpg=tk.Frame(root)
 bepg=tk.Frame(root)
-
-
-
+mspg=tk.Frame(root)
+fcpg=tk.Frame(root)
+wdpg=tk.Frame(root)
+cdpg=tk.Frame(root)
 
 
 #page colour
@@ -35,8 +36,13 @@ def show_frame(frame):
 def button_click():
     print("Button clicked")
 
-for frame in (homepg,ftpg,bepg):
+
+
+for frame in (homepg,ftpg,bepg,mspg,fcpg,wdpg,cdpg):
     frame.grid(row=0,column=0,sticky='nsew')
+
+
+
 
 
 label = tk.Label(homepg, text="AHAN! Bank")
@@ -50,18 +56,18 @@ beBtn = tk.Button(homepg, text="BALANCE ENQUIRY", command=lambda:show_frame(bepg
 beBtn.place(x=0,y=300, height=60,width=200 )
 
 
-msBtn = tk.Button(homepg, text="MINI STATEMENT", command=button_click)
+msBtn = tk.Button(homepg, text="MINI STATEMENT", command=lambda:show_frame(mspg))
 msBtn.place(x=0,y=500, height=60,width=200 )
 
 
-fCBtn = tk.Button(homepg, text="FAST CASH", command=button_click)
-fCBtn.place(x=600,y=100, height=60,width=200 )
+fcBtn = tk.Button(homepg, text="FAST CASH", command=lambda:show_frame(fcpg))
+fcBtn.place(x=600,y=100, height=60,width=200 )
 
 
-wdBtn = tk.Button(homepg, text="WITHDRAWAL", command=button_click)
+wdBtn = tk.Button(homepg, text="WITHDRAWAL", command=lambda:show_frame(wdpg))
 wdBtn.place(x=600,y=300, height=60,width=200 )
 
-cdBtn = tk.Button(homepg, text="CASH DEPOSIT", command=button_click)
+cdBtn = tk.Button(homepg, text="CASH DEPOSIT", command=lambda:show_frame(cdpg))
 cdBtn.place(x=600,y=500, height=60,width=200 )
 
 
