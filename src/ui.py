@@ -23,10 +23,6 @@ cdpg=tk.Frame(root)
 homepg.config(background="#FFF87F")
 
 
-
-
-
-
 #show frame
 def show_frame(frame):
     frame.tkraise()
