@@ -1,4 +1,5 @@
 import tkinter as tk
+import cv2
 
 root = tk.Tk()
 root.geometry("800x600")
