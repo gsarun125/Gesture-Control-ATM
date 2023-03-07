@@ -1,76 +1,71 @@
 import tkinter as tk
-import cv2
+#import cv2
 
-root = tk.Tk()
-root.geometry("800x600")
-#root.configure(background="#FFF87F")
+class AtmHome:
+    def __init__(self, width, height):
+        #window handle created by tinder or whatever tk is
+        self.wnd = tk.Tk()
+        #resolution shit
+        self.wnd.geometry(str(width)+"x"+str(height))
+        #idk, something for layering
+        self.wnd.rowconfigure(0, weight=1)
+        self.wnd.columnconfigure(0, weight=1)
 
+        self.__create_frames()
+        self.__setup_homepg()
 
+    def __create_frames(self):
+        self.homepg = tk.Frame(self.wnd)
+        self.ftpg = tk.Frame(self.wnd)
+        self.bepg = tk.Frame(self.wnd)
+        self.mspg = tk.Frame(self.wnd)
+        self.fcpg = tk.Frame(self.wnd)
+        self.wdpg = tk.Frame(self.wnd)
+        self.cdpg = tk.Frame(self.wnd)
 
-root.rowconfigure(0, weight=1)
-root.columnconfigure(0, weight=1)
+        for frame in (self.homepg, self.ftpg, self.bepg, self.mspg, self.fcpg, self.wdpg, self.cdpg):
+            frame.grid(row = 0, column = 0, sticky = 'nsew')
 
-homepg = tk.Frame(root)
-ftpg=tk.Frame(root)
-bepg=tk.Frame(root)
-mspg=tk.Frame(root)
-fcpg=tk.Frame(root)
-wdpg=tk.Frame(root)
-cdpg=tk.Frame(root)
+    def __setup_homepg(self):
+        #lemme set the page colour
+        self.homepg.config(background="#FFF87F")
+        label = tk.Label(self.homepg, text = "AHAN! Bank")
+        label.pack()
+        # create a button widget
+        ftBtn = tk.Button(self.homepg, text = "FUND TRANSFER", command = self.__show_frame(self.ftpg))
+        ftBtn.place(x = 0, y = 100, height = 60, width = 200)
 
+        beBtn = tk.Button(self.homepg, text = "BALANCE ENQUIRY", command = self.__show_frame(self.bepg))
+        beBtn.place(x = 0, y = 300, height = 60, width = 200)
 
-#page colour
-homepg.config(background="#FFF87F")
+        msBtn = tk.Button(self.homepg, text = "MINI STATEMENT", command = self.__show_frame(self.mspg))
+        msBtn.place(x = 0, y = 500, height = 60, width = 200)
 
+        fcBtn = tk.Button(self.homepg, text = "FAST CASH", command = self.__show_frame(self.fcpg))
+        fcBtn.place(x = 600, y = 100, height = 60,width = 200)
 
+        wdBtn = tk.Button(self.homepg, text = "WITHDRAWAL", command = self.__show_frame(self.wdpg))
+        wdBtn.place(x = 600, y = 300, height = 60, width = 200)
 
+        cdBtn = tk.Button(self.homepg, text = "CASH DEPOSIT", command = self.__show_frame(self.cdpg))
+        cdBtn.place(x = 600, y = 500, height = 60, width = 200)
+        
+        self.__show_frame(self.homepg)
 
+    #show frame
+    def __show_frame(self, frame):
+        frame.tkraise()
 
-
-#show frame
-def show_frame(frame):
-    frame.tkraise()
-
+    def show_gui(self):
+        self.wnd.update_idletasks()
+        self.wnd.update()
 
 # create a function to be called when the button is clicked
 def button_click():
     print("Button clicked")
 
 
+home = AtmHome(800, 600)
 
-for frame in (homepg,ftpg,bepg,mspg,fcpg,wdpg,cdpg):
-    frame.grid(row=0,column=0,sticky='nsew')
-
-
-
-
-
-label = tk.Label(homepg, text="AHAN! Bank")
-label.pack()
-# create a button widget
-ftBtn = tk.Button(homepg, text="FUND TRANSFER",command=lambda:show_frame(ftpg))
-ftBtn.place(x=0,y=100, height=60,width=200 )
-
-
-beBtn = tk.Button(homepg, text="BALANCE ENQUIRY", command=lambda:show_frame(bepg))
-beBtn.place(x=0,y=300, height=60,width=200 )
-
-
-msBtn = tk.Button(homepg, text="MINI STATEMENT", command=lambda:show_frame(mspg))
-msBtn.place(x=0,y=500, height=60,width=200 )
-
-
-fcBtn = tk.Button(homepg, text="FAST CASH", command=lambda:show_frame(fcpg))
-fcBtn.place(x=600,y=100, height=60,width=200 )
-
-
-wdBtn = tk.Button(homepg, text="WITHDRAWAL", command=lambda:show_frame(wdpg))
-wdBtn.place(x=600,y=300, height=60,width=200 )
-
-cdBtn = tk.Button(homepg, text="CASH DEPOSIT", command=lambda:show_frame(cdpg))
-cdBtn.place(x=600,y=500, height=60,width=200 )
-
-
-show_frame(homepg)
-
-root.mainloop()
+while True:
+    home.show_gui()
