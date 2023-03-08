@@ -5,6 +5,7 @@ class AtmHome:
     def __init__(self, width, height):
         #window handle created by tinder or whatever tk is
         self.wnd = tk.Tk()
+        self.wnd.title("Ahan! ATM")
         #resolution shit
         self.wnd.geometry(str(width)+"x"+str(height))
         #idk, something for layering
