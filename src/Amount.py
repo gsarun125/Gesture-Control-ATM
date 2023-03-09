@@ -19,14 +19,14 @@ root.title("PIN Verification")
 root.geometry("800x600")
 
 # Create a label and entry widget for the PIN
-pin_label = tk.Label(root, text="Enter your PIN:")
+pin_label = tk.Label(root, text="Enter the Amount to withdraw:")
 pin_label.pack()
 
-pin_entry = tk.Entry(root,show="*" )
+pin_entry = tk.Entry(root)
 pin_entry.pack() 
 
 # Create a button widget to submit the PIN
-pin_button = tk.Button(root, text="Verify PIN", command=verify_pin)
+pin_button = tk.Button(root, text="confirm amount", command=verify_pin)
 pin_button.pack()
 
 # Create a label widget to display the PIN verification result
