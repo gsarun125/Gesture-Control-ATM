@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 
 def verify_pin():
     # Get the PIN entered by the user
@@ -32,16 +33,13 @@ pin_button.pack()
 pin_result = tk.Label(root, text="")
 pin_result.pack()
 
-pin=""
-# Start the tkinter event loop
 def add_to_pin(symbol):
-    global pin
-    pin+=str(symbol)
-    pin_entry.insert(0, pin)
-    pin=""
+    pin = ""
+    pin += str(symbol)
+    pin_entry.insert(END, pin)
 
 def clear_entry():
-    pin.delete(0, tk.END)
+    pin_entry.delete(0, END)
 
 
 btn_1=tk.Button(root,text="1",command=lambda:add_to_pin(1))
