@@ -29,7 +29,7 @@ class WDpg:
         frame1_title=  tk.Label(self.cashpg, text='Please collect your cash', font='times 35')
         frame1_title.pack(fill='both', expand=True)
         
-        frame2_title=  tk.Label(self.cashpg, text='Thankyou Using Our ATM ', font='times 35')
+        frame2_title=  tk.Label(self.cashpg, text='Thank you for using our ATM ', font='times 35')
         frame2_title.pack(fill='both', expand=True)
 
     def __setup_wdpg(self):
@@ -40,13 +40,13 @@ class WDpg:
         # create a button widget
      
         SA_A = tk.Button(self.wdpg, text = "SAVINGS ACCOUNT",font=("Aria", 20), command =lambda: self.__show_frame(self.cashpg))
-        SA_A.place(x = 500, y = 200, height = 60, width = 300)
+        SA_A.place(x=500, y=200, height=100, width=300)
 
         CU_A = tk.Button(self.wdpg, text = "CURRENT ACCOUNT",font=("Arial", 20), command =lambda: self.__show_frame(self.cashpg))
-        CU_A.place(x = 500, y = 300, height = 60,width = 300)
+        CU_A.place(x=500, y=400, height=100, width=300)
 
-        DE_A = tk.Button(self.wdpg, text = "DEPOSIT ACCOUNT",font=("Arial", 20), command =lambda: self.__show_frame(self.cashpg))
-        DE_A.place(x = 500, y = 400, height = 60, width = 300)
+        #DE_A = tk.Button(self.wdpg, text = "DEPOSIT ACCOUNT",font=("Arial", 20), command =lambda: self.__show_frame(self.cashpg))
+        #DE_A.place(x=500, y=400, height=60, width=300)
         
         self.__show_frame(self.wdpg)
 

@@ -38,6 +38,7 @@ def add_to_pin(symbol):
 
 def clear_entry():
     account_entry.delete(0, END)
+    balance_label.config(text="")
 
 
 
