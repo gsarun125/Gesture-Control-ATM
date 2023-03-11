@@ -1,8 +1,7 @@
 import tkinter as tk
 
-class AtmHome:
+class Window:
     def __init__(self, width, height):
-        #window handle created by tinder or whatever tk is
         self.wnd=tk.Tk()
         self.wnd.title("Ahan! ATM")
         #resolution shit
@@ -11,6 +10,19 @@ class AtmHome:
         self.wnd.rowconfigure(0, weight=1)
         self.wnd.columnconfigure(0, weight=1)
 
+    def set_title(self, title):
+        self.wnd.title(title)
+
+    def get_window(self):
+        return self.wnd
+    
+    def update_gui(self):
+        self.wnd.update_idletasks()
+        self.wnd.update()
+
+class AtmHome:
+    def __init__(self, window: Window):
+        self.wnd = window.wnd
         self.__create_frames()
         self.__setup_homepg()
 
@@ -56,16 +68,8 @@ class AtmHome:
     def __show_frame(self, frame):
         frame.tkraise()
 
-    def update_gui(self):
-        self.wnd.update_idletasks()
-        self.wnd.update()
-
-# create a function to be called when the button is clicked
-def button_click():
-    print("Button clicked")
-
-
-home = AtmHome(800, 600)
+window = Window(800, 600)
+home = AtmHome(window)
 
 while True:
-    home.update_gui()
+    window.update_gui()
