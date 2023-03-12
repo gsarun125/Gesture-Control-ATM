@@ -88,13 +88,13 @@ class FundTransferUI:
         self.sender_entry.insert(END, pin)
         self.recipient_entry.insert(END,pin)
         self.transfer_amount_entry.insert(END,pin)
+
     def clear_entry(self):
         self.sender_entry.delete(0, END)
         self.recipient_entry.delete(0,END)
         self.transfer_amount_entry.delete(0,END)
 
 
-if __name__ == '__main__':
-    root = tk.Tk()
-    fund_transfer_ui = FundTransferUI(root)
-    root.mainloop()
+root = tk.Tk()
+fund_transfer_ui = FundTransferUI(root)
+root.mainloop()

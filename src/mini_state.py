@@ -60,43 +60,43 @@ balance_button = tk.Button(root, text="Get MINI STATEMENT", command=get_minibala
 balance_button.pack()
 
 #key pad  button
-btn_1=tk.Button(root,text="1",command=lambda:add_to_pin(1))
-btn_1.place(x=0,y=300, height=60,width=150 )
+btn_1=tk.Button(root, text="1", command=lambda: add_to_pin(1))
+btn_1.place(x=0, y=300, height=60, width=150 )
 
 
-btn_2=tk.Button(root,text="2",command=lambda:add_to_pin(2))
-btn_2.place(x=200,y=300, height=60,width=150 )
+btn_2=tk.Button(root,text="2",command=lambda: add_to_pin(2))
+btn_2.place(x=200, y=300, height=60, width=150 )
 
-btn_3=tk.Button(root,text="3",command=lambda:add_to_pin(3))
-btn_3.place(x=400,y=300, height=60,width=150 )
+btn_3=tk.Button(root, text="3", command=lambda: add_to_pin(3))
+btn_3.place(x=400, y=300, height=60, width=150 )
 
-btn_4=tk.Button(root,text="4",command=lambda:add_to_pin(4))
-btn_4.place(x=0,y=400, height=60,width=150 )
+btn_4=tk.Button(root, text="4", command=lambda: add_to_pin(4))
+btn_4.place(x=0, y=400, height=60, width=150 )
 
-btn_5=tk.Button(root,text="5",command=lambda:add_to_pin(5))
-btn_5.place(x=200,y=400, height=60,width=150 )
+btn_5=tk.Button(root,text="5", command=lambda: add_to_pin(5))
+btn_5.place(x=200, y=400, height=60, width=150 )
 
-btn_6=tk.Button(root,text="6",command=lambda:add_to_pin(6))
-btn_6.place(x=400,y=400, height=60,width=150 )
+btn_6=tk.Button(root, text="6", command=lambda: add_to_pin(6))
+btn_6.place(x=400, y=400, height=60, width=150 )
 
-btn_7=tk.Button(root,text="7",command=lambda:add_to_pin(7))
-btn_7.place(x=0,y=500, height=60,width=150)
+btn_7=tk.Button(root, text="7", command=lambda: add_to_pin(7))
+btn_7.place(x=0, y=500, height=60, width=150)
 
-btn_8=tk.Button(root,text="8",command=lambda:add_to_pin(8))
-btn_8.place(x=200,y=500, height=60,width=150 )
+btn_8=tk.Button(root,text="8", command=lambda: add_to_pin(8))
+btn_8.place(x=200, y=500, height=60, width=150 )
 
 
-btn_9=tk.Button(root,text="9",command=lambda:add_to_pin(9))
-btn_9.place(x=400,y=500, height=60,width=150 )
+btn_9=tk.Button(root,text="9",command=lambda: add_to_pin(9))
+btn_9.place(x=400, y=500, height=60, width=150 )
 
-btn_0=tk.Button(root,text="0",command=lambda:add_to_pin(0))
-btn_0.place(x=600,y=400, height=60,width=150 )
+btn_0=tk.Button(root, text="0",command=lambda: add_to_pin(0))
+btn_0.place(x=600, y=400, height=60, width=150 )
 
 btn_enter = tk.Button(root, text="ENTER", command=get_minibalance)
-btn_enter.place(x=600,y=500,height=60,width=150)
+btn_enter.place(x=600, y=500, height=60, width=150)
 
 btn_clear = tk.Button(root, text="CLEAR", command=clear_entry)
-btn_clear.place(x=600,y=300,height=60,width=150)
+btn_clear.place(x=600, y=300, height=60, width=150)
 
 balance_label = tk.Label(root, text="")
 balance_label.pack()

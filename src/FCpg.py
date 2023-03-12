@@ -26,10 +26,10 @@ class FCpg:
         for frame in (self.cashpg,self.fcpg):
             frame.grid(row = 0, column = 0, sticky = 'nsew')
         
-        frame1_title=  tk.Label(self.cashpg, text='Please collect your cash', font='times 35')
+        frame1_title=tk.Label(self.cashpg, text='Please collect your cash', font='times 35')
         frame1_title.pack(fill='both', expand=True)
         
-        frame2_title=  tk.Label(self.cashpg, text='Thank you for using our ATM ', font='times 35')
+        frame2_title=tk.Label(self.cashpg, text='Thank you for using our ATM ', font='times 35')
         frame2_title.pack(fill='both', expand=True)
 
     def __setup_fcpg(self):
