@@ -1,5 +1,4 @@
 import tkinter as tk
-#import cv2
 
 class FCpg:
     def __init__(self, width, height):
