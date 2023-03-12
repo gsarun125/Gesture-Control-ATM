@@ -1,5 +1,11 @@
 import tkinter as tk
 from tkinter import *
+from window import Window
+
+
+class AtmPin:
+    def __init__(self, window: Window):
+        self.w
 
 def verify_pin():
     # Get the PIN entered by the user
