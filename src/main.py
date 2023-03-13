@@ -1,8 +1,8 @@
-from gui import *
+from atm import *
 
 def main():
     window=Window(800, 600)
-    AtmGui(window)
+    Atm(window)
     while True:
         window.update_gui()
         if(window.is_closing):

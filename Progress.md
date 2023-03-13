@@ -6,10 +6,10 @@ main.py:
 bacc.py:
   - Contains the BankAcc class which holds details such as account number, PIN number and balance details
 
-gui.py:
+atm.py:
   - Has the AtmGui class which has all GUI components integrated
-  - Integrated Pin Page, Home Page, Fast Cash, Withdrawl(Just the Page), Balance Enquiry(Just a Bogus)
-  - Full work pending on Fund Transfer, Mini Statement and Cash Deposit
+  - Integrated Pin Page, Home Page, Fast Cash, Withdrawl(Just the Page), Balance Enquiry
+  - Work pending on Fund Transfer, Mini Statement and Cash Deposit
 
 window.py:
   - Has the Window class which takes reponsibilty for handling and closing a window
