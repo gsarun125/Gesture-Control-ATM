@@ -3,6 +3,9 @@ Mention the name of each file and the use along with the issues. Look down for e
 main.py:
   - Use this to run the entire program
 
+bacc.py:
+  - Contains the BankAcc class which holds details such as account number, PIN number and balance details
+
 gui.py:
   - Has the AtmGui class which has all GUI components integrated
   - Integrated Pin Page, Home Page, Fast Cash, Withdrawl(Just the Page), Balance Enquiry(Just a Bogus)
