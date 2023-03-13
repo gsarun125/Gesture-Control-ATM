@@ -1,23 +1,26 @@
 import tkinter as tk
 from window import Window
 
-class UI:
+DLY_MS = 1500
+BCK_YELLOW = "#FFF87F"
+
+class AtmGui:
     def __init__(self, window: Window):
         self.win=window
         self.__wnd=window.get_window()
         self.__create_frames()
         self.__show_pinpg()
 
+    # deprecated; to be removed...
     def __create_frames(self):
         self.ftpg=tk.Frame(self.__wnd)
-        self.bepg=tk.Frame(self.__wnd)
         self.mspg=tk.Frame(self.__wnd)
-        self.wdpg=tk.Frame(self.__wnd)
         self.cdpg=tk.Frame(self.__wnd)
 
-        for frame in (self.ftpg, self.bepg, self.mspg, self.wdpg, self.cdpg):
+        for frame in (self.ftpg, self.mspg, self.cdpg):
             frame.grid(row=0, column=0, sticky='nsew')
 
+    # pin input & verification page
     def __show_pinpg(self):
         self.win.set_title("Enter Your PIN Number")
         self.__pinpg = tk.Frame(self.__wnd)
@@ -42,16 +45,15 @@ class UI:
         self.__place_keypad(self.__pinpg, self.__add_to_pin, self.__verify_pin, self.__clear_entry)
         self.__show_frame(self.__pinpg)
 
+    # home page
     def __show_homepg(self):
         self.win.set_title("Home Page")
 
-        self.hmpg=tk.Frame(self.__wnd)
+        self.hmpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         self.hmpg.grid(row=0, column=0, sticky='nsew')
-        self.hmpg.config(background="#FFF87F")  #lemme set the page colour
 
-        label = tk.Label(self.hmpg, text="AHAN! Bank")
-        label.config(background="#FFF87F")
-        label.pack()
+        titl = tk.Label(self.hmpg, text="AHAN! Bank", background=BCK_YELLOW)
+        titl.pack()
         # create a button widget
         ftBtn = tk.Button(self.hmpg, text="FUND TRANSFER", command=self.__show_frame(self.ftpg))
         ftBtn.place(x=0, y=100, height=60, width=200)
@@ -65,18 +67,46 @@ class UI:
         fcBtn = tk.Button(self.hmpg, text="FAST CASH", command=self.__show_fcpg)
         fcBtn.place(x=600, y=100, height=60,width=200)
 
-        wdBtn = tk.Button(self.hmpg, text="WITHDRAWAL", command=self.__show_frame(self.wdpg))
+        wdBtn = tk.Button(self.hmpg, text="WITHDRAWAL", command=self.__show_wdpg)
         wdBtn.place(x=600, y=300, height=60, width=200)
 
-        cdBtn = tk.Button(self.hmpg, text="CASH DEPOSIT", command=self.__show_frame(self.cdpg))
+        cdBtn = tk.Button(self.hmpg, text="CASH DEPOSIT", command=self.__show_cdpg)
         cdBtn.place(x=600, y=500, height=60, width=200)
 
         self.__show_frame(self.hmpg)
 
+    # withdrawl page
+    def __show_wdpg(self):
+        self.win.set_title("Withdrawl")
+
+        self.wdpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
+        self.wdpg.grid(row=0, column=0, sticky='nsew')
+
+        wdrl = tk.Label(self.wdpg, text="WITHDRAWAL", font=("Arial", 30), background=BCK_YELLOW)
+        wdrl.pack()
+     
+        sa_btn=tk.Button(self.wdpg, text="SAVINGS ACCOUNT", font=("Aria", 20), command=lambda: self.__show_trdpg)
+        sa_btn.place(x=250, y=200, height=100, width=300)
+
+        ca_btn= tk.Button(self.wdpg, text="CURRENT ACCOUNT", font=("Arial", 20), command=lambda: self.__show_trdpg)
+        ca_btn.place(x=250, y=400, height=100, width=300)
+        
+        self.__show_frame(self.wdpg)
+
+    # cash deposit page
+    def __show_cdpg(self):      
+        self.win.set_title("Cash Deposit")
+        self.cdpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
+        self.cdpg.grid(row=0, column=0, sticky='nsew')
+
+        self.__show_frame(self.cdpg)
+
+    # fast cash page
     def __show_fcpg(self):
+        self.win.set_title("Fast Cash")
         self.fcpg=tk.Frame(self.__wnd)
         self.fcpg.grid(row=0, column=0, sticky='nsew')
-        self.fcpg.config(background="#FFF87F") # page colour set pannum
+        self.fcpg.config(background=BCK_YELLOW) # page colour set pannum
 
         label = tk.Label(self.fcpg, text = "FAST CASH", font=("Arial", 30))
         label.pack()
@@ -108,31 +138,35 @@ class UI:
 
         self.__show_frame(self.fcpg)
 
+    # transaction done page
     def __show_trdpg(self):
-        chpg=tk.Frame(self.__wnd)
+        self.win.set_title("Please wait...")
+        chpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         chpg.grid(row=0, column=0, sticky='nsew')
-        chpg.config(background="#FFF87F") # mela ithe ithu irukke
 
-        self.col_ch=tk.Label(chpg, text='Please wait...', font='times 35')
-        self.col_ch.pack(fill='both', expand=True)
+        self.col_ch=tk.Label(chpg, text='Please Wait...', font='times 35', background="#FFF87F")
+        self.col_ch.pack(expand=True)
 
-        self.tk_ch=tk.Label(chpg, text='', font='times 35')
-        self.tk_ch.pack(fill='both', expand=True)
+        self.tk_ch=tk.Label(chpg, text='', font='times 35', background="#FFF87F")
+        self.tk_ch.pack(expand=True)
 
-        self.col_ch.after(1500, self.__upd_trdpg)
+        self.col_ch.after(DLY_MS, self.__upd_trdpg)
         
         self.__show_frame(chpg)
     
+    # updates the done page
     def __upd_trdpg(self):
+        self.win.set_title("Thank You")
+
         self.col_ch.config(text='Please Collect Your Cash')
         self.tk_ch.config(text='Thank You For Using Our ATM')
 
+    # balance page
     def __show_balpg(self):
-        self.win.set_title("Balance Enquiry")
+        self.win.set_title("Your Balance")
 
-        self.bepg=tk.Frame(self.__wnd)
+        self.bepg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         self.bepg.grid(row=0, column=0, sticky='nsew')
-        self.bepg.config(background="#FFF87F")  #lemme set the page colour
 
         bal_lbl=tk.Label(self.bepg, text="Balance")
         bal_lbl.config(background="#FFF87F", font=('Arial', 40, 'bold'))
@@ -148,7 +182,7 @@ class UI:
 
         self.__show_frame(self.bepg)
 
-    #show frame
+    # show frame
     def __show_frame(self, frame):
         frame.tkraise()
 
@@ -212,20 +246,13 @@ class UI:
         btn_ent.place(height=80, width=80)
         btn_ent.place(relx=0.60, rely=0.75)
 
+    # adds pin to text box
     def __add_to_pin(self, symbol):
         pin=""
         pin+=str(symbol)
         self.pin_entry.insert(tk.END, pin)
 
+    # clears the total entry
     def __clear_entry(self):
         self.pin_entry.delete(0, tk.END)
         self.pin_result.config(text="")
-
-
-
-window=Window(800, 600)
-gui=UI(window)
-while True:
-    window.update_gui()
-    if(window.is_closing):
-        break

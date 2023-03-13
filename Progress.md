@@ -1,27 +1,23 @@
 Mention the name of each file and the use along with the issues. Look down for example
 
-ui.py:
-  - Has the window and homepage class
-  - Still not done with integration
+main.py:
+  - Use this to run the entire program
 
-FCpg.py:
-  -Fastcash
-  -nead to place pin verification before Fastcash page
+gui.py:
+  - Has the AtmGui class which has all GUI components integrated
+  - Integrated Pin Page, Home Page, Fast Cash, Withdrawl(Just the Page), Balance Enquiry(Just a Bogus)
+  - Full work pending on Fund Transfer, Mini Statement and Cash Deposit
 
-WDpg.py:
-  -WITHDRAWAL
-  -need to place  Amount.py after click the buttton
+window.py:
+  - Has the Window class which takes reponsibilty for handling and closing a window
 
 
 mini_state.py:
   -Ministatement
   nead to place pin verification before ministatement page
 
-balance.py:
-  -balance
 
-Fund.py:
+ftpg.py:
   -FundTransfer
   -error in keybord entry
-
 
