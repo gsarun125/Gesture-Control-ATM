@@ -1,15 +1,20 @@
 import tkinter as tk
 from window import Window
+from bacc import BankAcc
 
 DLY_MS = 1500
 BCK_YELLOW = "#FFF87F"
 
 class AtmGui:
     def __init__(self, window: Window):
-        self.win=window
+        self.__acc=BankAcc()
+        self.__win=window
         self.__wnd=window.get_window()
         self.__create_frames()
         self.__show_pinpg()
+
+    def __set_title(self, title):
+        self.__win.set_title(title)
 
     # deprecated; to be removed...
     def __create_frames(self):
@@ -22,7 +27,7 @@ class AtmGui:
 
     # pin input & verification page
     def __show_pinpg(self):
-        self.win.set_title("Enter Your PIN Number")
+        self.__set_title("Enter Your PIN Number")
         self.__pinpg = tk.Frame(self.__wnd)
 
         self.__pinpg.grid(row=0, column=0, sticky='nsew')
@@ -47,7 +52,7 @@ class AtmGui:
 
     # home page
     def __show_homepg(self):
-        self.win.set_title("Home Page")
+        self.__set_title("Home Page")
 
         self.hmpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         self.hmpg.grid(row=0, column=0, sticky='nsew')
@@ -77,7 +82,7 @@ class AtmGui:
 
     # withdrawl page
     def __show_wdpg(self):
-        self.win.set_title("Withdrawl")
+        self.__set_title("Withdrawal")
 
         self.wdpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         self.wdpg.grid(row=0, column=0, sticky='nsew')
@@ -95,7 +100,7 @@ class AtmGui:
 
     # cash deposit page
     def __show_cdpg(self):      
-        self.win.set_title("Cash Deposit")
+        self.__set_title("Cash Deposit")
         self.cdpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         self.cdpg.grid(row=0, column=0, sticky='nsew')
 
@@ -103,7 +108,7 @@ class AtmGui:
 
     # fast cash page
     def __show_fcpg(self):
-        self.win.set_title("Fast Cash")
+        self.__set_title("Fast Cash")
         self.fcpg=tk.Frame(self.__wnd)
         self.fcpg.grid(row=0, column=0, sticky='nsew')
         self.fcpg.config(background=BCK_YELLOW) # page colour set pannum
@@ -133,37 +138,52 @@ class AtmGui:
         at_10t = tk.Button(self.fcpg, text = "10000",font=("Arial", 30), command=self.__show_trdpg)
         at_10t.place(x=600, y=350, height=60, width=200)
 
-        at_20t = tk.Button(self.fcpg, text="20000",font=("Arial", 30), command=self.__show_trdpg)
+        at_20t = tk.Button(self.fcpg, text="20000",font=("Arial", 30), command= lambda: self.__show_trdpg(20000))
         at_20t.place(x=600, y=500, height=60, width=200)
 
         self.__show_frame(self.fcpg)
 
     # transaction done page
-    def __show_trdpg(self):
-        self.win.set_title("Please wait...")
+    def __show_trdpg(self, deb_amt=0, add_amt=0):
+        self.__set_title("Please wait...")
         chpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         chpg.grid(row=0, column=0, sticky='nsew')
 
-        self.col_ch=tk.Label(chpg, text='Please Wait...', font='times 35', background="#FFF87F")
-        self.col_ch.pack(expand=True)
+        new_amt = self.__acc.acbal - deb_amt
 
-        self.tk_ch=tk.Label(chpg, text='', font='times 35', background="#FFF87F")
-        self.tk_ch.pack(expand=True)
+        if(new_amt >= 0):
+            self.__acc.update_bal(new_amt)
+            self.col_ch=tk.Label(chpg, text='Please Wait...', font='times 35', background="#FFF87F")
+            self.col_ch.pack(expand=True)
 
-        self.col_ch.after(DLY_MS, self.__upd_trdpg)
+            self.tk_ch=tk.Label(chpg, text='', font='times 35', background="#FFF87F")
+            self.tk_ch.pack(expand=True)
+
+            self.col_ch.after(DLY_MS, self.__upd_trdpg)
+
+            self.__show_frame(chpg)
+        else:
+            self.col_ch=tk.Label(chpg, text='Insufficient Balance...', font='times 35', background="#FFF87F")
+            self.col_ch.pack(expand=True)
+
+            self.tk_ch=tk.Label(chpg, text='', font='times 35', background="#FFF87F")
+            self.tk_ch.pack(expand=True)
+
+            self.__show_fcpg()
         
-        self.__show_frame(chpg)
     
     # updates the done page
     def __upd_trdpg(self):
-        self.win.set_title("Thank You")
+        self.__set_title("Thank You")
 
         self.col_ch.config(text='Please Collect Your Cash')
         self.tk_ch.config(text='Thank You For Using Our ATM')
 
+        self.tk_ch.after(2500, self.__show_pinpg)
+
     # balance page
     def __show_balpg(self):
-        self.win.set_title("Your Balance")
+        self.__set_title("Your Balance")
 
         self.bepg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         self.bepg.grid(row=0, column=0, sticky='nsew')
@@ -172,8 +192,7 @@ class AtmGui:
         bal_lbl.config(background="#FFF87F", font=('Arial', 40, 'bold'))
         bal_lbl.place(relx=0.15, rely=0.10)
 
-        bal=7000
-        bal_lbl=tk.Label(self.bepg, text=f"$: {bal}")
+        bal_lbl=tk.Label(self.bepg, text=f"$: {self.__acc.acbal}", background=BCK_YELLOW)
         bal_lbl.config(font=('Arial', 20))
         bal_lbl.place(relx=0.40, rely=0.40)
 
@@ -188,10 +207,10 @@ class AtmGui:
 
     # verifies the PIN entered
     def __verify_pin(self):
-        entered_pin=self.pin_entry.get() # Get the PIN entered by the user
+        entered_pin=int(self.pin_entry.get()) # Get the PIN entered by the user
 
         # Replace this with your own PIN verification logic; Should I AG?
-        if entered_pin == "1234":
+        if entered_pin == self.__acc.pnnum:
             self.__show_homepg()
         else:
             self.pin_result.config(text="Incorrect PIN!")
