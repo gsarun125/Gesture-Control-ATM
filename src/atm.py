@@ -14,41 +14,42 @@ class Atm:
         self.__wnd=window.get_window()
         self.__show_pinpg()
 
+    #window title maathum
     def __set_title(self, title):
         self.__win.set_title(title)
 
-    # pin input & verification page
+    #pin input & verification page
     def __show_pinpg(self):
         self.__set_title("Enter Your PIN Number")
-        self.__pinpg = tk.Frame(self.__wnd, background=BCK_YELLOW)
+        pinpg = tk.Frame(self.__wnd, background=BCK_YELLOW)
 
-        self.__pinpg.grid(row=0, column=0, sticky='nsew')
+        pinpg.grid(row=0, column=0, sticky='nsew')
 
-        self.pin_label = tk.Label(self.__pinpg, text="Enter your PIN:", background=BCK_YELLOW)
+        self.pin_label = tk.Label(pinpg, text="Enter your PIN:", background=BCK_YELLOW)
         self.pin_label.pack()
 
-        self.__inp_entry = tk.Entry(self.__pinpg, font=('Arial', 14, 'bold'), justify='center')
+        self.__inp_entry = tk.Entry(pinpg, font=('Arial', 14, 'bold'), justify='center')
         self.__inp_entry.place(relx=0.40, rely=0.10, width=175, height=50)
 
         # displays the PIN verification result
-        self.__inp_result = tk.Label(self.__pinpg, text="", background=BCK_YELLOW)
+        self.__inp_result = tk.Label(pinpg, text="", background=BCK_YELLOW)
         self.__inp_result.pack()
 
-        self.__place_keypad(self.__pinpg, self.__add_to_box, self.__verify_pin, self.__clear_entry)
-        self.__show_frame(self.__pinpg)
+        self.__place_keypad(pinpg, self.__verify_pin)
+        self.__show_frame(pinpg)
 
-    # verifies the PIN entered
+    #verifies the PIN entered
     def __verify_pin(self):
         entered_pin=int(self.__inp_entry.get()) # Get the PIN entered by the user
 
         # Replace this with your own PIN verification logic; Should I AG?
         if entered_pin == self.__acc.pnnum:
-            self.__show_homepg()
+            self.__show_hmpg()
         else:
             self.__inp_result.config(text="Incorrect PIN!")
 
-    # home page
-    def __show_homepg(self):
+    #home page
+    def __show_hmpg(self):
         self.__set_title("Home Page")
 
         hmpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
@@ -77,7 +78,7 @@ class Atm:
 
         self.__show_frame(hmpg)
 
-    # fund transfer
+    #fund transfer
     def __show_ftpg(self):
         self.__set_title("Fund Transfer")
 
@@ -101,8 +102,9 @@ class Atm:
 
         self.__inp_entry = self.__acc_entry
 
-        self.__place_keypad(ftpg, self.__add_to_box, self.__upd_ftpg, self.__clear_entry)
+        self.__place_keypad(ftpg, self.__upd_ftpg)
 
+    #update pannum fund transfer pageah
     def __upd_ftpg(self):
         self.__inp_entry=self.__amt_entry
         acc_en = self.__acc_entry.get()
@@ -156,7 +158,7 @@ class Atm:
         self.__inp_result = tk.Label(sapg, text="", background=BCK_YELLOW)
         self.__inp_result.pack()
 
-        self.__place_keypad(sapg, self.__add_to_box, self.__debit_amt, self.__clear_entry)
+        self.__place_keypad(sapg, self.__debit_amt)
 
         self.__show_frame(sapg)
 
@@ -216,7 +218,7 @@ class Atm:
         header_label = tk.Label(mspg, text="Mini Statement", font=('Arial', 16, 'bold'), background=BCK_YELLOW)
         balance_label = tk.Label(mspg, text=f"Account Balance: ₹ {self.__acc.acbal}", font=('Arial', 12), background=BCK_YELLOW)
 
-        back_btn=tk.Button(mspg, text="<-", command=self.__show_homepg)
+        back_btn=tk.Button(mspg, text="<-", command=self.__show_hmpg)
         back_btn.place(relx=0, rely=0.90, height=40, width=40)
 
         # create a listbox to display transaction history
@@ -333,7 +335,7 @@ class Atm:
         bal_lbl.config(font=('Arial', 28))
         bal_lbl.pack(fill="none", expand=True)
 
-        back_btn=tk.Button(self.bepg, text="<-", command=self.__show_homepg)
+        back_btn=tk.Button(self.bepg, text="<-", command=self.__show_hmpg)
         back_btn.place(relx=0, rely=0.90, height=40, width=40)
 
         self.__show_frame(self.bepg)
@@ -343,44 +345,44 @@ class Atm:
         frame.tkraise()
 
     #places the keypad of the ATM on-screen
-    def __place_keypad(self, frame, num_click, enter_btn, clear_btn):
-        btn_1 = tk.Button(frame, text="1", command=lambda: num_click(1))
+    def __place_keypad(self, frame, enter_btn):
+        btn_1 = tk.Button(frame, text="1", command=lambda: self.__add_to_box(1))
         btn_1.place(height=80, width=80)
         btn_1.place(relx=0.30, rely=0.30)
 
-        btn_2 = tk.Button(frame, text="2", command=lambda: num_click(2))
+        btn_2 = tk.Button(frame, text="2", command=lambda: self.__add_to_box(2))
         btn_2.place(height=80, width=80)
         btn_2.place(relx=0.45, rely=0.30)
 
-        btn_3 = tk.Button(frame, text="3", command=lambda: num_click(3))
+        btn_3 = tk.Button(frame, text="3", command=lambda: self.__add_to_box(3))
         btn_3.place(height=80, width=80)
         btn_3.place(relx=0.60, rely=0.30)
 
-        btn_4 = tk.Button(frame, text="4", command=lambda: num_click(4))
+        btn_4 = tk.Button(frame, text="4", command=lambda: self.__add_to_box(4))
         btn_4.place(height=80, width=80)
         btn_4.place(relx=0.30, rely=0.45)
 
-        btn_5 = tk.Button(frame, text="5", command=lambda: num_click(5))
+        btn_5 = tk.Button(frame, text="5", command=lambda: self.__add_to_box(5))
         btn_5.place(height=80, width=80)
         btn_5.place(relx=0.45, rely=0.45)
 
-        btn_6 = tk.Button(frame, text="6", command=lambda: num_click(6))
+        btn_6 = tk.Button(frame, text="6", command=lambda: self.__add_to_box(6))
         btn_6.place(height=80, width=80)
         btn_6.place(relx=0.60, rely=0.45)
 
-        btn_7 = tk.Button(frame, text="7", command=lambda: num_click(7))
+        btn_7 = tk.Button(frame, text="7", command=lambda: self.__add_to_box(7))
         btn_7.place(height=80, width=80)
         btn_7.place(relx=0.30, rely=0.60)
 
-        btn_8 = tk.Button(frame, text="8", command=lambda: num_click(8))
+        btn_8 = tk.Button(frame, text="8", command=lambda: self.__add_to_box(8))
         btn_8.place(height=80, width=80)
         btn_8.place(relx=0.45, rely=0.60)
 
-        btn_9 = tk.Button(frame, text="9", command=lambda: num_click(9))
+        btn_9 = tk.Button(frame, text="9", command=lambda: self.__add_to_box(9))
         btn_9.place(height=80, width=80)
         btn_9.place(relx=0.60, rely=0.60)
         
-        btn_clr = tk.Button(frame, text="CLEAR", command=clear_btn)
+        btn_clr = tk.Button(frame, text="CLEAR", command=self.__clear_entry)
         btn_clr.place(height=80, width=80)
         btn_clr.place(relx=0.15, rely=0.75)
 
@@ -388,7 +390,7 @@ class Atm:
         btn_clr.place(height=80, width=80)
         btn_clr.place(relx=0.30, rely=0.75)
 
-        btn_0 = tk.Button(frame, text="0", command=lambda: num_click(0))
+        btn_0 = tk.Button(frame, text="0", command=lambda: self.__add_to_box(0))
         btn_0.place(height=80, width=80)
         btn_0.place(relx=0.45, rely=0.75)
 
