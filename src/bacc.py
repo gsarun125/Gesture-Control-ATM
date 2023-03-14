@@ -28,7 +28,7 @@ class BankAcc:
             self.acbal=int(dat[2])
         file.close()
 
-class TranDetails:
+class TranDet:
     def __read(self):
         file=open("data/trns.dat", 'r', encoding='utf-8')
         d=file.readlines()

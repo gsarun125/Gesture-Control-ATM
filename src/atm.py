@@ -8,7 +8,7 @@ BCK_YELLOW = "#FFF87F"
 class Atm:
     def __init__(self, window: Window):
         self.__acc=BankAcc()
-        self.__trns=TranDetails()
+        self.__trns=TranDet()
         self.__sh=4321
         self.__win=window
         self.__wnd=window.get_window()

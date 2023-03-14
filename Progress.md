@@ -4,21 +4,16 @@ main.py:
   - Use this to run the entire program
 
 bacc.py:
-  - Contains the BankAcc class which holds details such as account number, PIN number and balance details
+  - Contains the BankAcc class which holds details like account number, PIN number and balance
+  - Also contains the TranDet class which holds the transaction details used for mini statement
 
 atm.py:
   - Has the AtmGui class which has all GUI components integrated
-  - Integrated Pin Page, Home Page, Fast Cash, Withdrawl(Just the Page), Balance Enquiry
-  - Work pending on Fund Transfer, Mini Statement and Cash Deposit
+  - Integrated Pin Page, Home Page, Fast Cash, Withdrawl, Balance Enquiry, Mini Statement and Cash Deposit
+  - Work pending on Fund Transfer
 
 window.py:
   - Has the Window class which takes reponsibilty for handling and closing a window
-
-
-mini_state.py:
-  -Ministatement
-  nead to place pin verification before ministatement page
-
 
 ftpg.py:
   -FundTransfer
