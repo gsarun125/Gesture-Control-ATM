@@ -48,8 +48,8 @@ class TranDet:
         dat=[]
         for i in range(strt, max):
             dat.append(d[i].strip())
-        
         file.close()
+        
         return dat
     
     def __write(self, dat):

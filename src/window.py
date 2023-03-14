@@ -4,8 +4,7 @@ class Window:
     def __init__(self, width, height):
         self.__wnd=tk.Tk()
         self.__wnd.title("Ahan! ATM")
-        #resolution shit
-        self.__wnd.geometry(str(width)+"x"+str(height))
+        self.__wnd.geometry(str(width)+"x"+str(height)) #resolution shit
         #idk, something for layering
         self.__wnd.rowconfigure(0, weight=1)
         self.__wnd.columnconfigure(0, weight=1)
