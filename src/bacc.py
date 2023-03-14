@@ -11,11 +11,16 @@ class BankAcc:
         self.__read()
 
     def update_bal(self, acc_bal):
+        data=self.__read_all()
+        new_data=[]
         file=open("data/acde.dat", 'w')
         self.acnum=7689_2312_1245_2441
         self.pnnum=1234
         self.acbal=acc_bal
-        file.write(str(self.acnum) + "-" + str(self.pnnum) + "-" + str(self.acbal))
+        new_data.append(str(self.acnum) + "-" + str(self.pnnum) + "-" + str(self.acbal) + '\n')
+        for da in data:
+            new_data.append(da)
+        file.writelines(new_data)
         file.close()
 
     def __read(self):
@@ -27,6 +32,12 @@ class BankAcc:
             self.pnnum=int(dat[1])
             self.acbal=int(dat[2])
         file.close()
+
+    def __read_all(self):
+        file=open("data/acde.dat", 'r')
+        dat_lines=file.readlines()
+        file.close()
+        return dat_lines[1:len(dat_lines)]
 
 class TranDet:
     def __read(self):

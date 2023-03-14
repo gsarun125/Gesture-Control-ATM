@@ -9,13 +9,8 @@ bacc.py:
 
 atm.py:
   - Has the AtmGui class which has all GUI components integrated
-  - Integrated Pin Page, Home Page, Fast Cash, Withdrawl, Balance Enquiry, Mini Statement and Cash Deposit
-  - Work pending on Fund Transfer
+  - Integrated Pin Page, Fund Transfer, Home Page, Fast Cash, Withdrawl, Balance Enquiry, Mini Statement and Cash Deposit
 
 window.py:
   - Has the Window class which takes reponsibilty for handling and closing a window
-
-ftpg.py:
-  -FundTransfer
-  -error in keybord entry
 
