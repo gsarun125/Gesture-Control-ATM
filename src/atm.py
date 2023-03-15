@@ -28,7 +28,7 @@ class Atm:
         self.pin_label = tk.Label(pinpg, text="Enter your PIN:", background=BCK_YELLOW)
         self.pin_label.pack()
 
-        self.__inp_entry = tk.Entry(pinpg, font=('Arial', 14, 'bold'), justify='center')
+        self.__inp_entry = tk.Entry(pinpg, font=('Arial', 14, 'bold'), justify='center', show='*')
         self.__inp_entry.place(relx=0.40, rely=0.10, width=175, height=50)
 
         # displays the PIN verification result
@@ -82,27 +82,34 @@ class Atm:
     def __show_ftpg(self):
         self.__set_title("Fund Transfer")
 
-        ftpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
-        ftpg.grid(row=0, column=0, sticky='nsew')
+        self.__ftpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
+        self.__ftpg.grid(row=0, column=0, sticky='nsew')
 
-        self.amt_label = tk.Label(ftpg, text="Enter account number:", font=('Arial', 8, 'bold'), background=BCK_YELLOW)
-        self.amt_label.place(relx=0.25, rely=0.050)
+        acc_label = tk.Label(self.__ftpg, text="Enter account number:", font=('Arial', 8, 'bold'), background=BCK_YELLOW)
+        acc_label.place(relx=0.25, rely=0.050)
 
-        amt_label = tk.Label(ftpg, text="Enter amount to transfer:", font=('Arial', 8, 'bold'), background=BCK_YELLOW)
+        amt_label = tk.Label(self.__ftpg, text="Enter amount to transfer:", font=('Arial', 8, 'bold'), background=BCK_YELLOW)
         amt_label.place(relx=0.25, rely=0.150)
         
-        self.__acc_entry = tk.Entry(ftpg, font=('Arial', 14, 'bold'), justify='center')
+        self.__acc_entry = tk.Entry(self.__ftpg, font=('Arial', 14, 'bold'), justify='center')
         self.__acc_entry.place(relx=0.45, rely=0.025, width=225, height=50)
+        self.__acc_entry.bind("<ButtonRelease-1>", self.__hndl_rls)
 
-        self.__amt_entry = tk.Entry(ftpg, font=('Arial', 14, 'bold'), justify='center')
+        self.__amt_entry = tk.Entry(self.__ftpg, font=('Arial', 14, 'bold'), justify='center')
         self.__amt_entry.place(relx=0.45, rely=0.125, width=225, height=50)
+        self.__amt_entry.bind("<ButtonRelease-1>", self.__hndl_rls)
 
-        self.__ft_result = tk.Label(ftpg, text='', background=BCK_YELLOW)
+        self.__ft_result = tk.Label(self.__ftpg, text='', background=BCK_YELLOW)
         self.__ft_result.place(relx=0.40, rely=0.20, width=200, height=35)
 
         self.__inp_entry = self.__acc_entry
 
-        self.__place_keypad(ftpg, self.__upd_ftpg)
+        self.__place_keypad(self.__ftpg, self.__upd_ftpg)
+
+    def __hndl_rls(self, event):
+        foc_gt = self.__ftpg.focus_get()
+        if(type(foc_gt) == type(self.__inp_entry)):
+            self.__inp_entry = foc_gt
 
     #update pannum fund transfer pageah
     def __upd_ftpg(self):
@@ -191,8 +198,8 @@ class Atm:
         cdpg=tk.Frame(self.__wnd, background=BCK_YELLOW)
         cdpg.grid(row=0, column=0, sticky='nsew')
 
-        label = tk.Label(cdpg, text = "CASH DEPOSIT", font='times 35', background=BCK_YELLOW)
-        label.pack()
+        cd_label = tk.Label(cdpg, text = "CASH DEPOSIT", font='times 35', background=BCK_YELLOW)
+        cd_label.pack()
 
         inst=tk.Label(cdpg, text='Please deposit your cash...', font='times 35', background=BCK_YELLOW)
         inst.pack(expand=True)
@@ -215,8 +222,8 @@ class Atm:
         mspg.grid(row=0, column=0, sticky='nsew')
 
         # create labels for header and account balance
-        header_label = tk.Label(mspg, text="Mini Statement", font=('Arial', 16, 'bold'), background=BCK_YELLOW)
-        balance_label = tk.Label(mspg, text=f"Account Balance: ₹ {self.__acc.acbal}", font=('Arial', 12), background=BCK_YELLOW)
+        ms_label = tk.Label(mspg, text="Mini Statement", font=('Arial', 16, 'bold'), background=BCK_YELLOW)
+        bal_label = tk.Label(mspg, text=f"Account Balance: ₹ {self.__acc.acbal}", font=('Arial', 12), background=BCK_YELLOW)
 
         back_btn=tk.Button(mspg, text="<-", command=self.__show_hmpg)
         back_btn.place(relx=0, rely=0.90, height=40, width=40)
@@ -230,46 +237,46 @@ class Atm:
             transactions_listbox.insert(tk.END, transaction)
 
         # pack the widgets into the window
-        header_label.pack(pady=10)
-        balance_label.pack(pady=5)
+        ms_label.pack(pady=10)
+        bal_label.pack(pady=5)
         transactions_listbox.pack(padx=5, pady=5)
 
     #fast cash page
     def __show_fcpg(self):
         self.__set_title("Fast Cash")
-        self.fcpg=tk.Frame(self.__wnd)
-        self.fcpg.grid(row=0, column=0, sticky='nsew')
-        self.fcpg.config(background=BCK_YELLOW) #page colour set pannum
+        fcpg=tk.Frame(self.__wnd)
+        fcpg.grid(row=0, column=0, sticky='nsew')
+        fcpg.config(background=BCK_YELLOW) #page colour set pannum
 
-        label = tk.Label(self.fcpg, text = "FAST CASH", font=("Arial", 30), background=BCK_YELLOW)
-        label.pack()
+        ft_label = tk.Label(fcpg, text = "FAST CASH", font=("Arial", 30), background=BCK_YELLOW)
+        ft_label.pack()
 
         # buttons, so many buttons
-        at_5h = tk.Button(self.fcpg, text="500", font=("Arial", 30), command=lambda: self.__debit_amt(500))
+        at_5h = tk.Button(fcpg, text="500", font=("Arial", 30), command=lambda: self.__debit_amt(500))
         at_5h.place(x=0, y=50, height=60, width=200)
 
-        at_1t = tk.Button(self.fcpg, text = "1000", font=("Arial", 30), command=lambda: self.__debit_amt(1000))
+        at_1t = tk.Button(fcpg, text = "1000", font=("Arial", 30), command=lambda: self.__debit_amt(1000))
         at_1t.place(x=0, y=200, height=60, width=200)
 
-        at_2t = tk.Button(self.fcpg, text ="2000",font=("Arial", 30), command=lambda: self.__debit_amt(2000))
+        at_2t = tk.Button(fcpg, text ="2000",font=("Arial", 30), command=lambda: self.__debit_amt(2000))
         at_2t.place(x=0, y=350, height=60, width=200)
         
-        at_3t = tk.Button(self.fcpg, text="3000", font=("Arial", 30), command=lambda: self.__debit_amt(3000))
+        at_3t = tk.Button(fcpg, text="3000", font=("Arial", 30), command=lambda: self.__debit_amt(3000))
         at_3t.place(x=0, y=500, height=60, width=200)
         
-        at_4t = tk.Button(self.fcpg, text="4000", font=("Arial", 30), command=lambda: self.__debit_amt(4000))
+        at_4t = tk.Button(fcpg, text="4000", font=("Arial", 30), command=lambda: self.__debit_amt(4000))
         at_4t.place(x=600, y=50, height=60, width=200)
 
-        at_5t = tk.Button(self.fcpg, text="5000",font=("Arial", 30), command=lambda: self.__debit_amt(5000))
+        at_5t = tk.Button(fcpg, text="5000",font=("Arial", 30), command=lambda: self.__debit_amt(5000))
         at_5t.place(x=600, y=200, height=60, width=200)
 
-        at_10t = tk.Button(self.fcpg, text = "10000",font=("Arial", 30), command=lambda: self.__debit_amt(10000))
+        at_10t = tk.Button(fcpg, text = "10000",font=("Arial", 30), command=lambda: self.__debit_amt(10000))
         at_10t.place(x=600, y=350, height=60, width=200)
 
-        at_20t = tk.Button(self.fcpg, text="20000",font=("Arial", 30), command=lambda: self.__debit_amt(20000))
+        at_20t = tk.Button(fcpg, text="20000",font=("Arial", 30), command=lambda: self.__debit_amt(20000))
         at_20t.place(x=600, y=500, height=60, width=200)
 
-        self.__show_frame(self.fcpg)
+        self.__show_frame(fcpg)
 
     #transaction done page
     def __show_trdpg(self):
@@ -324,21 +331,21 @@ class Atm:
     def __show_balpg(self):
         self.__set_title("Your Balance")
 
-        self.bepg=tk.Frame(self.__wnd, background=BCK_YELLOW)
-        self.bepg.grid(row=0, column=0, sticky='nsew')
+        bepg=tk.Frame(self.__wnd, background=BCK_YELLOW)
+        bepg.grid(row=0, column=0, sticky='nsew')
 
-        bal_lbl=tk.Label(self.bepg, text="BALANCE")
+        bal_lbl=tk.Label(bepg, text="BALANCE")
         bal_lbl.config(background=BCK_YELLOW, font=('Arial', 56, 'bold'))
         bal_lbl.pack()
 
-        bal_lbl=tk.Label(self.bepg, text=f"₹ {self.__acc.acbal}", background=BCK_YELLOW)
+        bal_lbl=tk.Label(bepg, text=f"₹ {self.__acc.acbal}", background=BCK_YELLOW)
         bal_lbl.config(font=('Arial', 28))
         bal_lbl.pack(fill="none", expand=True)
 
-        back_btn=tk.Button(self.bepg, text="<-", command=self.__show_hmpg)
+        back_btn=tk.Button(bepg, text="<-", command=self.__show_hmpg)
         back_btn.place(relx=0, rely=0.90, height=40, width=40)
 
-        self.__show_frame(self.bepg)
+        self.__show_frame(bepg)
 
     #show frame
     def __show_frame(self, frame):
