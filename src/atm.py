@@ -94,6 +94,7 @@ class Atm:
         self.__acc_entry = tk.Entry(self.__ftpg, font=('Arial', 14, 'bold'), justify='center')
         self.__acc_entry.place(relx=0.45, rely=0.025, width=225, height=50)
         self.__acc_entry.bind("<ButtonRelease-1>", self.__hndl_rls)
+        self.__acc_entry.bind("<Key>", self.__key_prs)
 
         self.__amt_entry = tk.Entry(self.__ftpg, font=('Arial', 14, 'bold'), justify='center')
         self.__amt_entry.place(relx=0.45, rely=0.125, width=225, height=50)
@@ -102,9 +103,17 @@ class Atm:
         self.__ft_result = tk.Label(self.__ftpg, text='', background=BCK_YELLOW)
         self.__ft_result.place(relx=0.40, rely=0.20, width=200, height=35)
 
+        back_btn=tk.Button(self.__ftpg, text="<-", command=self.__show_hmpg)
+        back_btn.place(relx=0, rely=0.90, height=40, width=40)
+
         self.__inp_entry = self.__acc_entry
 
-        self.__place_keypad(self.__ftpg, self.__upd_ftpg)
+        self.__place_keypad(self.__ftpg, self.__upd_ftpg, self.__key_prs)
+
+    def __key_prs(self, event):
+        print(len(self.__acc_entry.get()))
+        if(len(self.__acc_entry.get()) == 16):
+            self.__inp_entry = self.__amt_entry
 
     def __hndl_rls(self, event):
         foc_gt = self.__ftpg.focus_get()
@@ -352,42 +361,51 @@ class Atm:
         frame.tkraise()
 
     #places the keypad of the ATM on-screen
-    def __place_keypad(self, frame, enter_btn):
+    def __place_keypad(self, frame, enter_btn, btn_clk=None):
         btn_1 = tk.Button(frame, text="1", command=lambda: self.__add_to_box(1))
         btn_1.place(height=80, width=80)
         btn_1.place(relx=0.30, rely=0.30)
+        btn_1.bind("<1>", btn_clk)
 
         btn_2 = tk.Button(frame, text="2", command=lambda: self.__add_to_box(2))
         btn_2.place(height=80, width=80)
         btn_2.place(relx=0.45, rely=0.30)
+        btn_2.bind("<1>", btn_clk)
 
         btn_3 = tk.Button(frame, text="3", command=lambda: self.__add_to_box(3))
         btn_3.place(height=80, width=80)
         btn_3.place(relx=0.60, rely=0.30)
+        btn_3.bind("<1>", btn_clk)
 
         btn_4 = tk.Button(frame, text="4", command=lambda: self.__add_to_box(4))
         btn_4.place(height=80, width=80)
         btn_4.place(relx=0.30, rely=0.45)
+        btn_4.bind("<1>", btn_clk)
 
         btn_5 = tk.Button(frame, text="5", command=lambda: self.__add_to_box(5))
         btn_5.place(height=80, width=80)
         btn_5.place(relx=0.45, rely=0.45)
+        btn_5.bind("<1>", btn_clk)
 
         btn_6 = tk.Button(frame, text="6", command=lambda: self.__add_to_box(6))
         btn_6.place(height=80, width=80)
         btn_6.place(relx=0.60, rely=0.45)
+        btn_6.bind("<1>", btn_clk)
 
         btn_7 = tk.Button(frame, text="7", command=lambda: self.__add_to_box(7))
         btn_7.place(height=80, width=80)
         btn_7.place(relx=0.30, rely=0.60)
+        btn_7.bind("<1>", btn_clk)
 
         btn_8 = tk.Button(frame, text="8", command=lambda: self.__add_to_box(8))
         btn_8.place(height=80, width=80)
         btn_8.place(relx=0.45, rely=0.60)
+        btn_8.bind("<1>", btn_clk)
 
         btn_9 = tk.Button(frame, text="9", command=lambda: self.__add_to_box(9))
         btn_9.place(height=80, width=80)
         btn_9.place(relx=0.60, rely=0.60)
+        btn_9.bind("<1>", btn_clk)
         
         btn_clr = tk.Button(frame, text="CLEAR", command=self.__clear_entry)
         btn_clr.place(height=80, width=80)
@@ -400,6 +418,7 @@ class Atm:
         btn_0 = tk.Button(frame, text="0", command=lambda: self.__add_to_box(0))
         btn_0.place(height=80, width=80)
         btn_0.place(relx=0.45, rely=0.75)
+        btn_0.bind("<1>", btn_clk)
 
         btn_ent = tk.Button(frame, text="ENTER", command=enter_btn)
         btn_ent.place(height=80, width=80)
