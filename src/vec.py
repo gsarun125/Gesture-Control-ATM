@@ -12,6 +12,9 @@ class vec2:
     def getY(self):
         return self.y
     
+    def getIntTup(self):
+        return (int(self.x), int(self.y))
+    
     def lerp(self, b, t):
         return vec2(lerp(self.x, b.x, t), lerp(self.y, b.y, t))
     
