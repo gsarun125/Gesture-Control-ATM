@@ -14,3 +14,6 @@ class vec2:
     
     def lerp(self, b, t):
         return vec2(lerp(self.x, b.x, t), lerp(self.y, b.y, t))
+    
+    def print(self):
+        print("x: ", self.x, " y: ", self.y)
