@@ -18,5 +18,18 @@ class vec2:
     def lerp(self, b, t):
         return vec2(lerp(self.x, b.x, t), lerp(self.y, b.y, t))
     
-    def print(self):
-        print("x: ", self.x, " y: ", self.y)
+    def __add__(self, other):
+        return vec2(self.x + other.x, self.y + other.y)
+    
+    def __sub__(self, other):
+        return vec2(self.x - other.x, self.y - other.y)
+    
+    def __mul__(self, scalar):
+        return vec2(self.x * scalar, self.y * scalar)
+    
+    def __div__(self, scalar):
+        return vec2(self.x / scalar, self.y / scalar)
+    
+    
+    def __str__(self):
+        return "x: " + str(self.x) + " y: " + str(self.y)
