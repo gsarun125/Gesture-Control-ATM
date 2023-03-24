@@ -51,7 +51,7 @@ with mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.8, min_tracking_
         
         prev_cur_pos = curr_cur_pos
 
-        cv2.imshow("Hand Tracking", image)
+        #cv2.imshow("Hand Tracking", image)
 
         if cv2.waitKey(5) & 0xFF == 27:  # Press Escape key to exit
             break

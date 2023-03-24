@@ -161,6 +161,9 @@ class Atm:
 
         ca_btn= tk.Button(wdpg, text="CURRENT ACCOUNT", font=("Arial", 20), command=self.__show_scpg)
         ca_btn.place(x=250, y=400, height=100, width=300)
+
+        back_btn=tk.Button(wdpg, text="<-", command=self.__show_hmpg)
+        back_btn.place(relx=0, rely=0.90, height=40, width=40)
         
         self.__show_frame(wdpg)
 
@@ -196,7 +199,7 @@ class Atm:
                 self.__sh=0 #amount withdrawal
                 self.__trns.transact("Withdraw", amt)
                 self.__acc.update_bal(new_bal)
-            elif amt > 10000:
+            elif amt > 20000:
                 self.__sh=1 #amount limit exceed
             else:
                 self.__sh=2 #invalid amount
@@ -310,7 +313,7 @@ class Atm:
 
         elif self.__sh == 1:
             self.col_ch.config(text="Amount Exceed!")
-            self.tk_ch.config(text="Enter amount less than 10000")
+            self.tk_ch.config(text="Enter amount less than 20000")
             self.col_ch.after(DLY_MS, self.__show_scpg)
 
         elif self.__sh == -1 or self.__sh == -4:
