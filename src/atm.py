@@ -225,7 +225,7 @@ class Atm:
 
         self.__show_frame(cdpg)
 
-    #ithu amount deposit panna
+    #amount deposit panna
     def __depos_amt(self):
         new_bal = self.__acc.acbal + 10000
         self.__trns.transact("Deposit", 10000)
