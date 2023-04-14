@@ -2,8 +2,7 @@ import cv2
 import threading
 import mediapipe as mp
 import win32api
-import time
-from vec import vec2
+import win32con
 from vec import *
 
 class Fings:
@@ -40,11 +39,19 @@ class Fings:
         self.ring=vec2()
         self.pinky=vec2()
 
-    def gest1():
-        return
+    # Thumb Click
+    def gest1(self):
+        if(self.__handed == 1):
+            if(self.mid.x - self.thumb.x > 0):
+                return True
+            return False
+        elif(self.__handed == 2):
+            if(self.mid.x - self.thumb.x < 0):
+                return True
+            return False
     
     def gest2():
-        return
+        return True
 
 class Hamigi(threading.Thread):
     def __init__(self, screenCentre=vec2(300, 300)):
@@ -101,13 +108,16 @@ class Hamigi(threading.Thread):
                     self.__curr_cur_pos = vec2(m_x, m_y)
                     self.__delta_cur_mov = self.__curr_cur_pos - self.__prev_cur_pos
                     self.mouse_pos += self.__delta_cur_mov * smooth
-                    print(self.__delta_cur_mov)
+                    #print(self.__delta_cur_mov)
                     #for t in [x / 10.0 for x in range(1, 10, 1)]:
                         #l=0
                         #self.delta_cur_pos = self.self.__curr_cur_pos.lerp(self.__prev_cur_pos, t)
                     win32api.SetCursorPos(self.mouse_pos.getIntTup())
-                    #win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, m_x, m_y, 0, 0)
-                    #win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, m_x, m_y, 0, 0)
+
+                    if(self.__fingData.gest1()):
+                        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, m_x, m_y, 0, 0)
+                        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, m_x, m_y, 0, 0)
+
                     self.mp_drawing.draw_landmarks(self.image, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
             else:
                 self.mouse_pos=self.__def_mouse_pos
@@ -126,7 +136,7 @@ class Hamigi(threading.Thread):
             #self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
             cv2.imshow("Hand Tracking", self.image)
 
-            if cv2.waitKey(10) & 0xFF == 27:  # Press Escape key to exit
+            if cv2.waitKey(123) & 0xFF == 27:  # Press Escape key to exit
                 break
 
         self.cap.release()
