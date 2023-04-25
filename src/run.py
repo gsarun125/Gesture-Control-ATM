@@ -6,15 +6,14 @@ cmd1 = "python main.py"
 cmd2 = "python hamigi.py"
 
 
-def on_key_press(event):
-    if event.name == 'q': 
-        print("Exiting gracefully...")
-        p1.terminate()
-        p2.terminate()
-        p1.join()
-        p2.join()
-        print("Both scripts have finished executing.")
-        exit(0)
+def on_key_press(event): 
+    print("Exiting gracefully...")
+    p1.terminate()
+    p2.terminate()
+    p1.join()
+    p2.join()
+    print("Both scripts have finished executing.")
+    exit(0)
 
 
 # Launch the two scripts 

@@ -70,7 +70,6 @@ class Hamigi(threading.Thread):
         self.image=cv2.Mat
 
     def run(self):
-        #with self.mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.8, min_tracking_confidence=0.7) as hands:
         smooth=1
         while self.cap.isOpened():
             success, self.image = self.cap.read()

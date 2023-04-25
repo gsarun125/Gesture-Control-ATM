@@ -1,9 +1,12 @@
 import tkinter as tk
+from tkinter import PhotoImage
 from window import Window
 from bacc import *
 
 DLY_MS = 1500
 BCK_COL = "#87F1FF"
+BCK_IMG = "rsc/back.png"
+
 
 class Atm:
     def __init__(self, window: Window):
@@ -26,11 +29,14 @@ class Atm:
     #pin input & verification page
     def __show_pinpg(self):
         self.__set_title("Enter Your PIN Number")
-        pinpg = tk.Frame(self.__wnd, background=BCK_COL)
+        img = PhotoImage(file = BCK_IMG)
+        pinpg = tk.Frame(self.__wnd)
 
         pinpg.grid(row=0, column=0, sticky='nsew')
 
-        self.pin_label = tk.Label(pinpg, text="Enter your PIN:", background=BCK_COL)
+        img_lbl = tk.Label(pinpg, image = img)
+        img_lbl.place(x=0, y=0)
+        self.pin_label = tk.Label(pinpg, text="Enter your PIN:")#background=BCK_COL)
         self.pin_label.pack()
 
         self.__inp_entry = tk.Entry(pinpg, font=('Arial', 14, 'bold'), justify='center', show='*')
@@ -204,7 +210,7 @@ class Atm:
             else:
                 self.__sh=2 #invalid amount
         else:
-            self.__sh=2 #same shit
+            self.__sh=2 
             self.__inp_result.config(text='Enter a Valid Amount')
             
         self.__show_trdpg()
@@ -225,7 +231,7 @@ class Atm:
 
         self.__show_frame(cdpg)
 
-    #amount deposit panna
+    #amount deposit 
     def __depos_amt(self):
         new_bal = self.__acc.acbal + 10000
         self.__trns.transact("Deposit", 10000)
@@ -263,12 +269,12 @@ class Atm:
         self.__set_title("Fast Cash")
         fcpg=tk.Frame(self.__wnd)
         fcpg.grid(row=0, column=0, sticky='nsew')
-        fcpg.config(background=BCK_COL) #page colour set pannum
+        fcpg.config(background=BCK_COL) 
 
         ft_label = tk.Label(fcpg, text = "FAST CASH", font=("Arial", 30), background=BCK_COL)
         ft_label.pack()
 
-        # buttons, so many buttons
+        # buttons
         at_5h = tk.Button(fcpg, text="500", font=("Arial", 30), command=lambda: self.__debit_amt(500))
         at_5h.place(x=0, y=50, height=60, width=200)
 
