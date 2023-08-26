@@ -10,8 +10,7 @@ Let's make it work
   py run.py
 <h2>Output</h2>
 <body>
-  <img src="output1.JPEG"><br>
-  <img src="Screenshot_20230724-205216.JPEG"><br>
-  <img src="Screenshot_20230724-205820.png"><br>
-  <img src="Screenshot_20230724-205623.png"><br>
+  <img src="ouput1.jpeg"><br>
+  <img src="output2.jpeg"><br>
+  <img src="output3.jpeg"><br>
 </body>
